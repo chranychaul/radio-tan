@@ -1,32 +1,70 @@
 input.onButtonPressed(Button.A, function () {
     basic.clearScreen()
-    radio.sendString("smile")
+    basic.showLeds(`
+        . # . # .
+        . # # # .
+        . # # # .
+        . # # # .
+        . . # . .
+        `)
+    radio.sendString("piedra")
 })
 input.onButtonPressed(Button.AB, function () {
-    let susto = 0
     basic.clearScreen()
-    radio.sendString("" + (susto))
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . # # # #
+        . # # . .
+        . # . . .
+        `)
+    radio.sendString("tijera")
 })
 radio.onReceivedString(function (receivedString) {
-    if (receivedString == "smile") {
-        basic.showIcon(IconNames.Happy)
+    let yo = ""
+    if (input.buttonIsPressed(Button.A)) {
+        if (yo == "tijera") {
+            basic.showIcon(IconNames.Happy)
+        }
+        if (yo == "papel") {
+            basic.showIcon(IconNames.Sad)
+        }
+        if (yo == "piedra") {
+            basic.showIcon(IconNames.Asleep)
+        }
     }
-    if (receivedString == "sad") {
-        basic.showIcon(IconNames.Sad)
+    if (input.buttonIsPressed(Button.AB)) {
+        if (yo == "piedra") {
+            basic.showIcon(IconNames.Sad)
+        }
+        if (yo == "papel") {
+            basic.showIcon(IconNames.Happy)
+        }
+        if (yo == "tijera") {
+            basic.showIcon(IconNames.Asleep)
+        }
     }
-    if (receivedString == "susto") {
-        basic.showLeds(`
-            . # . # .
-            . . . . .
-            . # # # .
-            . # . # .
-            . # # # .
-            `)
+    if (input.buttonIsPressed(Button.B)) {
+        if (yo == "papel") {
+            basic.showIcon(IconNames.Asleep)
+        }
+        if (yo == "tijera") {
+            basic.showIcon(IconNames.Sad)
+        }
+        if (yo == "piedra") {
+            basic.showIcon(IconNames.Happy)
+        }
     }
 })
 input.onButtonPressed(Button.B, function () {
-    let sad = 0
     basic.clearScreen()
-    radio.sendString("" + (sad))
+    basic.showLeds(`
+        . # . . .
+        . # # # .
+        . . . # .
+        . # # # .
+        . # . . .
+        `)
+    radio.sendString("papel")
 })
 radio.setGroup(9)
